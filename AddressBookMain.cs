@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace AddressBook
 {
-    internal class AddressBookMain
+    public class AddressBookMain
     {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Address Book");
+        }
     }
 }
