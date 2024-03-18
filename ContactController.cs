@@ -12,13 +12,6 @@ namespace AddressBook
         static Contact contact;
         static ArrayList contactList = new ArrayList();
 
-        public ContactController()
-        {
-            contactList.Add(new Contact("Yashwanth", "Vishwakarma", "India", "Kodagu", "Karnataka", "571236", "8861554357", "yugnasura@gmail.com"));
-            contactList.Add(new Contact("Chiranth", "Vishwakarma", "India", "Chickmaglore", "Karnataka", "577111", "8105961546", "chiranth@gmail.com"));
-            contactList.Add(new Contact("Revathi", "Hoovanna", "India", "Hassan", "Karnataka", "572368", "8310177813", "revathi2gmail.com"));
-        }
-
         public void AddNewContact()
         {
             Console.WriteLine("Enter first name:");
