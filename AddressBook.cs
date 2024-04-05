@@ -8,7 +8,15 @@ namespace AddressBookProject
 {
     public class AddressBook
     {
-        private HashSet<Contact> contacts;
+        private readonly HashSet<Contact> contacts;
+        public AddressBook()
+        {
+            contacts = [];
+        }
+        public void AddContact(Contact contact)
+        {
+            contacts.Add(contact);
+        }
 
     }
 }
