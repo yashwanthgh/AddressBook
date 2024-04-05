@@ -94,12 +94,10 @@ namespace AddressBookProject
             Contact contactToDelete = FindContact(firstName, lastName);
             if (contactToDelete == null)
             {
-                Console.WriteLine("Contact not found.");
+                Console.WriteLine("Contact not found");
                 return false;
             }
-
             contacts.Remove(contactToDelete);
-            Console.WriteLine("Contact deleted successfully!");
             return true;
         }
 
