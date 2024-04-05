@@ -11,7 +11,8 @@ public class Program
             Console.WriteLine("** Address Book **");
             Console.WriteLine("1. Add Contact");
             Console.WriteLine("2. Edit Contact");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Delete Contact");
+            Console.WriteLine("4. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -24,7 +25,10 @@ public class Program
                 case "2":
                     addressBookManager.EditContact();
                     break;
-                case "3":
+                case"3":
+                    addressBookManager.DeleteContact();
+                    break;
+                case "4":
                     Console.WriteLine("Exiting Address Book");
                     return;
                 default:

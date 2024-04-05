@@ -89,6 +89,20 @@ namespace AddressBookProject
             return contacts;
         }
 
+        public bool DeleteContact(string firstName, string lastName)
+        {
+            Contact contactToDelete = FindContact(firstName, lastName);
+            if (contactToDelete == null)
+            {
+                Console.WriteLine("Contact not found.");
+                return false;
+            }
+
+            contacts.Remove(contactToDelete);
+            Console.WriteLine("Contact deleted successfully!");
+            return true;
+        }
+
         public void ListContacts()
         {
             if (contacts.Count == 0)
