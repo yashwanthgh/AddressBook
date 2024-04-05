@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AddressBookProject
 {
     public class AddressBook
     {
-        private HashSet<Contact> contacts;
+        private List<Contact> contacts;
 
-        public AddressBook()
+        public string Name { get; }
+
+        public AddressBook(string name)
         {
-            contacts = new HashSet<Contact>();
+            Name = name;
+            contacts = new List<Contact>();
         }
 
         public void AddContact(Contact contact)
@@ -30,6 +30,10 @@ namespace AddressBookProject
             }
 
             Console.WriteLine("Enter new details (leave blank to keep existing value):");
+            Console.WriteLine("First Name: ");
+            string newFirstName = Console.ReadLine();
+            Console.WriteLine("Last Name: ");
+            string newLastName = Console.ReadLine();
             Console.Write("Address: ");
             string newAddress = Console.ReadLine();
             Console.Write("City: ");
@@ -43,6 +47,14 @@ namespace AddressBookProject
             Console.Write("Email: ");
             string newEmail = Console.ReadLine();
 
+            if (!string.IsNullOrEmpty(newFirstName))
+            {
+                contactToEdit.FirstName = newFirstName;
+            }
+            if (!string.IsNullOrEmpty(newLastName))
+            {
+                contactToEdit.LastName = newLastName;
+            }
             if (!string.IsNullOrEmpty(newAddress))
             {
                 contactToEdit.Address = newAddress;
@@ -74,19 +86,7 @@ namespace AddressBookProject
 
         private Contact FindContact(string firstName, string lastName)
         {
-            foreach (Contact contact in contacts)
-            {
-                if (contact.FirstName == firstName && contact.LastName == lastName)
-                {
-                    return contact;
-                }
-            }
-            return null;
-        }
-
-        public HashSet<Contact> GetContacts()
-        {
-            return contacts;
+            return contacts.Find(c => c.FirstName == firstName && c.LastName == lastName);
         }
 
         public bool DeleteContact(string firstName, string lastName)
@@ -103,23 +103,11 @@ namespace AddressBookProject
 
         public void ListContacts()
         {
-            if (contacts.Count == 0)
-            {
-                Console.WriteLine("No contacts found in the address book.");
-                return;
-            }
-
-            Console.WriteLine("** Contacts List **");
+            Console.WriteLine($"** Contacts in {Name} **");
             foreach (Contact contact in contacts)
             {
-                Console.WriteLine($"Name: {contact.FirstName} {contact.LastName}");
-                Console.WriteLine($"Address: {contact.Address}");
-                Console.WriteLine($"City: {contact.City}, State: {contact.State} Zip: {contact.Zip}");
-                Console.WriteLine($"Phone Number: {contact.PhoneNumber}");
-                Console.WriteLine($"Email: {contact.Email}");
-                Console.WriteLine("--------------------");
+                Console.WriteLine(contact);
             }
         }
     }
-
 }
