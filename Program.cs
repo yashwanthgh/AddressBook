@@ -10,7 +10,8 @@ public class Program
         {
             Console.WriteLine("** Address Book **");
             Console.WriteLine("1. Add Contact");
-            Console.WriteLine("2. Exit");
+            Console.WriteLine("2. Edit Contact");
+            Console.WriteLine("3. Exit");
             Console.Write("Enter your choice: ");
 
             string? choice = Console.ReadLine();
@@ -20,8 +21,10 @@ public class Program
                 case "1":
                     addressBookManager.AddContact();
                     break;
-                
                 case "2":
+                    addressBookManager.EditContact();
+                    break;
+                case "3":
                     Console.WriteLine("Exiting Address Book");
                     return;
                 default:
