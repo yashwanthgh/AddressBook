@@ -14,15 +14,17 @@ namespace AddressBookProject
                 Console.WriteLine("1. Add Address Book");
                 Console.WriteLine("2. Select Address Book");
                 Console.WriteLine("3. Search Person by City or State");
-                Console.WriteLine("4. Exit System");
+                Console.WriteLine("4. View Persons by City");
+                Console.WriteLine("5. View Persons by State");
+                Console.WriteLine("6. Exit System");
                 Console.Write("Enter your choice: ");
 
                 string choice = Console.ReadLine();
                 int choiceInt;
 
-                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 4)
+                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 6)
                 {
-                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
+                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
                     choice = Console.ReadLine();
                 }
 
@@ -37,7 +39,7 @@ namespace AddressBookProject
                         AddressBook selectedAddressBook = addressBookSystem.GetSelectedAddressBook();
                         if (selectedAddressBook != null)
                         {
-                            AddressBookManager addressBookManager = new AddressBookManager(selectedAddressBook);
+                            AddressBookManager addressBookManager = new AddressBookManager(selectedAddressBook, addressBookSystem);
                             ManageContactsInAddressBook(addressBookManager);
                         }
                         break;
@@ -45,6 +47,12 @@ namespace AddressBookProject
                         SearchPersonByCityOrState();
                         break;
                     case 4:
+                        ViewPersonsByCity();
+                        break;
+                    case 5:
+                        ViewPersonsByState();
+                        break;
+                    case 6:
                         Console.WriteLine("Exiting Address Book System.");
                         Environment.Exit(0);
                         break;
@@ -102,6 +110,50 @@ namespace AddressBookProject
             else
             {
                 Console.WriteLine($"No matching contacts found for '{searchQuery}'.");
+            }
+        }
+
+        private static void ViewPersonsByCity()
+        {
+            Dictionary<string, List<Contact>> personsByCity = addressBookSystem.ViewPersonsByCity();
+            if (personsByCity.Count > 0)
+            {
+                Console.WriteLine("Persons by City:");
+                foreach (var kvp in personsByCity)
+                {
+                    Console.WriteLine($"City: {kvp.Key}");
+                    foreach (var contact in kvp.Value)
+                    {
+                        Console.WriteLine(contact);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No contacts found.");
+            }
+        }
+
+        private static void ViewPersonsByState()
+        {
+            Dictionary<string, List<Contact>> personsByState = addressBookSystem.ViewPersonsByState();
+            if (personsByState.Count > 0)
+            {
+                Console.WriteLine("Persons by State:");
+                foreach (var kvp in personsByState)
+                {
+                    Console.WriteLine($"State: {kvp.Key}");
+                    foreach (var contact in kvp.Value)
+                    {
+                        Console.WriteLine(contact);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No contacts found.");
             }
         }
     }
