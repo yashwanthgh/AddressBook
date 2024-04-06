@@ -13,15 +13,16 @@ namespace AddressBookProject
                 Console.WriteLine("\n** Address Book System Menu **");
                 Console.WriteLine("1. Add Address Book");
                 Console.WriteLine("2. Select Address Book");
-                Console.WriteLine("3. Exit System");
+                Console.WriteLine("3. Search Person by City or State");
+                Console.WriteLine("4. Exit System");
                 Console.Write("Enter your choice: ");
 
                 string choice = Console.ReadLine();
                 int choiceInt;
 
-                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 3)
+                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 4)
                 {
-                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
+                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 4.");
                     choice = Console.ReadLine();
                 }
 
@@ -41,6 +42,9 @@ namespace AddressBookProject
                         }
                         break;
                     case 3:
+                        SearchPersonByCityOrState();
+                        break;
+                    case 4:
                         Console.WriteLine("Exiting Address Book System.");
                         Environment.Exit(0);
                         break;
@@ -79,6 +83,25 @@ namespace AddressBookProject
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
+            }
+        }
+
+        private static void SearchPersonByCityOrState()
+        {
+            Console.WriteLine("Enter city or state to search: ");
+            string searchQuery = Console.ReadLine();
+            List<Contact> searchResults = addressBookSystem.SearchPersonInCityOrState(searchQuery);
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine($"Search results for '{searchQuery}':");
+                foreach (var contact in searchResults)
+                {
+                    Console.WriteLine(contact);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No matching contacts found for '{searchQuery}'.");
             }
         }
     }

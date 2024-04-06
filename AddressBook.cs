@@ -110,6 +110,11 @@ namespace AddressBookProject
             return true;
         }
 
+        public List<Contact> FindContactsInCityOrState(string searchQuery)
+        {
+            return contacts.Where(c => c.City == searchQuery || c.State == searchQuery).ToList();
+        }
+
         public void ListContacts()
         {
             Console.WriteLine($"** Contacts in {Name} **");

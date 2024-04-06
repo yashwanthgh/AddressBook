@@ -52,5 +52,14 @@ namespace AddressBookProject
             string selectedAddressBookName = addressBooks.Keys.ElementAt(choiceInt - 1);
             return addressBooks[selectedAddressBookName];
         }
+        public List<Contact> SearchPersonInCityOrState(string searchQuery)
+        {
+            List<Contact> searchResults = new List<Contact>();
+            foreach (var addressBook in addressBooks.Values)
+            {
+                searchResults.AddRange(addressBook.FindContactsInCityOrState(searchQuery));
+            }
+            return searchResults;
+        }
     }
 }
