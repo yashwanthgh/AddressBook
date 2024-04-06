@@ -1,4 +1,5 @@
 ﻿using AddressBookProject;
+using System.Text.RegularExpressions;
 
 public class AddressBookManager
 {
@@ -14,22 +15,15 @@ public class AddressBookManager
     public void AddContact()
     {
         Console.WriteLine("Enter Contact Details:");
-        Console.Write("First Name: ");
-        string firstName = Console.ReadLine();
-        Console.Write("Last Name: ");
-        string lastName = Console.ReadLine();
-        Console.Write("Address: ");
+
+        string firstName = GetValidatedInput("First Name: ", @"^[A-Z][a-zA-Z]{2,}$");
+        string lastName = GetValidatedInput("Last Name: ", @"^[A-Z][a-zA-Z]{2,}$");
         string address = Console.ReadLine();
-        Console.Write("City: ");
         string city = Console.ReadLine();
-        Console.Write("State: ");
         string state = Console.ReadLine();
-        Console.Write("Zip: ");
         string zip = Console.ReadLine();
-        Console.Write("Phone Number: ");
-        string phoneNumber = Console.ReadLine();
-        Console.Write("Email: ");
-        string email = Console.ReadLine();
+        string phoneNumber = GetValidatedInput("Phone Number: ", @"^[0-9]{10}$");
+        string email = GetValidatedInput("Email: ", @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
 
         Contact newContact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
         addressBook.AddContact(newContact);
@@ -37,6 +31,23 @@ public class AddressBookManager
         addressBookSystem.AddPersonToStateDictionary(newContact);
         Console.WriteLine("Contact added successfully!");
     }
+
+    private string GetValidatedInput(string prompt, string pattern)
+    {
+        Regex regex = new Regex(pattern);
+        string input;
+        do
+        {
+            Console.Write(prompt);
+            input = Console.ReadLine();
+            if (!regex.IsMatch(input))
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
+        } while (!regex.IsMatch(input));
+        return input;
+    }
+
 
     public void EditContact()
     {
