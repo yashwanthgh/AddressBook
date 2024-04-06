@@ -16,15 +16,17 @@ namespace AddressBookProject
                 Console.WriteLine("3. Search Person by City or State");
                 Console.WriteLine("4. View Persons by City");
                 Console.WriteLine("5. View Persons by State");
-                Console.WriteLine("6. Exit System");
+                Console.WriteLine("6. Get Count by City");
+                Console.WriteLine("7. Get Count by State");
+                Console.WriteLine("8. Exit System");
                 Console.Write("Enter your choice: ");
 
                 string choice = Console.ReadLine();
                 int choiceInt;
 
-                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 6)
+                while (!int.TryParse(choice, out choiceInt) || choiceInt < 1 || choiceInt > 8)
                 {
-                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
+                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 8.");
                     choice = Console.ReadLine();
                 }
 
@@ -53,6 +55,12 @@ namespace AddressBookProject
                         ViewPersonsByState();
                         break;
                     case 6:
+                        GetCountByCity();
+                        break;
+                    case 7:
+                        GetCountByState();
+                        break;
+                    case 8:
                         Console.WriteLine("Exiting Address Book System.");
                         Environment.Exit(0);
                         break;
@@ -149,6 +157,39 @@ namespace AddressBookProject
                         Console.WriteLine(contact);
                     }
                     Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("No contacts found.");
+            }
+        }
+        private static void GetCountByCity()
+        {
+            Dictionary<string, int> countByCity = addressBookSystem.GetCountByCity();
+            if (countByCity.Count > 0)
+            {
+                Console.WriteLine("Count by City:");
+                foreach (var kvp in countByCity)
+                {
+                    Console.WriteLine($"City: {kvp.Key}, Count: {kvp.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No contacts found.");
+            }
+        }
+
+        private static void GetCountByState()
+        {
+            Dictionary<string, int> countByState = addressBookSystem.GetCountByState();
+            if (countByState.Count > 0)
+            {
+                Console.WriteLine("Count by State:");
+                foreach (var kvp in countByState)
+                {
+                    Console.WriteLine($"State: {kvp.Key}, Count: {kvp.Value}");
                 }
             }
             else
