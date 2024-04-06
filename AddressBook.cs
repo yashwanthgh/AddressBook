@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace AddressBookProject
 {
     public class AddressBook
     {
-        private List<Contact> contacts;
+        private HashSet<Contact> contacts;
 
         public string Name { get; }
 
         public AddressBook(string name)
         {
             Name = name;
-            contacts = new List<Contact>();
+            contacts = new HashSet<Contact>();
         }
 
         public void AddContact(Contact contact)
         {
+            if (contacts.Any(c => c.FirstName == contact.FirstName && c.LastName == contact.LastName))
+            {
+                Console.WriteLine("Contact already exists in address book: {0}.", Name);
+                return;
+            }
+
             contacts.Add(contact);
+            Console.WriteLine("Contact added successfully!");
         }
 
         public bool EditContact(string firstName, string lastName)
@@ -84,10 +92,11 @@ namespace AddressBookProject
             return true;
         }
 
-        private Contact FindContact(string firstName, string lastName)
+        public Contact FindContact(string firstName, string lastName)
         {
-            return contacts.Find(c => c.FirstName == firstName && c.LastName == lastName);
+            return contacts.Where(c => c.FirstName == firstName && c.LastName == lastName).FirstOrDefault();
         }
+
 
         public bool DeleteContact(string firstName, string lastName)
         {

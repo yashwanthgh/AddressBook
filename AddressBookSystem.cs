@@ -14,7 +14,11 @@ namespace AddressBookProject
 
         public void AddAddressBook(string name)
         {
-
+            if (addressBooks.ContainsKey(name))
+            {
+                Console.WriteLine("An address book with that name already exists.");
+                return;
+            }
             addressBooks.Add(name, new AddressBook(name));
             Console.WriteLine("Address book '{0}' created successfully!", name);
         }

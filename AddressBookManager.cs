@@ -33,7 +33,6 @@ namespace AddressBookProject
 
             Contact newContact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
             addressBook.AddContact(newContact);
-            Console.WriteLine("Contact added successfully!");
         }
 
         public void EditContact()
